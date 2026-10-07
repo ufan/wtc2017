@@ -73,7 +73,7 @@ Z.~Xiong\textsuperscript{3}, K.~Li\textsuperscript{3},
 \textsuperscript{*}Corresponding authors: Yong Zhou (\nolinkurl{zhouyong@jwky.com});\\
 Liping Huang (\nolinkurl{huanglp@shenzhenmc.com}).}
 
-\abstract{Uncertain ground conditions and buried utilities complicate shield tunnelling, while boreholes and surface investigations may provide incomplete coverage in dense urban settings. Cosmic-ray muography offers a passive means of investigating subsurface density, but field deployment requires instrumentation that can operate under construction vibration, elevated temperature, high humidity and restricted access. This paper presents a field-deployable three-layer Micromegas muography system and two applications on Shenzhen Metro Line~22. The system incorporates environmental control, pneumatic vibration isolation and integrated data acquisition for both mobile and stationary measurements. During dynamic deployment aboard tunnel boring machines, it operated at depths of approximately 15--30~m over 1371 rings. On the right line, normal acquisition totalled 2965.5~h, corresponding to 85.2\% of the monitoring period and 97.2\% after external power and network interruptions were excluded. Measurements at two shield positions were combined with tunnel geometry and borehole stratigraphy to reconstruct density corrections relative to a geological reference model, indicating a possible low-density region above and to one side of the tunnel. In a separate static investigation, observations from four detector positions were processed using position-specific U-Net models and multi-view geometry to estimate a candidate buried-pipeline axis. The result was supplied as a spatial constraint for construction planning, but was not independently confirmed. The deployments demonstrate the field feasibility and decision-support potential of muography for subsurface investigation during tunnel construction, while highlighting the need for matched reference measurements, uncertainty quantification and independent validation.}
+\abstract{Uncertain ground conditions and buried utilities complicate shield tunnelling, while boreholes and surface investigations may provide incomplete coverage in dense urban settings. Cosmic-ray muography offers a passive means of investigating subsurface density, but field deployment requires instrumentation that can operate under construction vibration, elevated temperature, high humidity and restricted access. This paper presents a field-deployable three-layer Micromegas muography system and two applications on Shenzhen Metro Line~22. The system incorporates environmental control, pneumatic vibration isolation, a low-consumption gas supply, condition monitoring and integrated data acquisition for both mobile and stationary measurements. During dynamic deployment aboard tunnel boring machines, it operated at depths of approximately 15--30~m over 1371 rings. On the right line, normal acquisition totalled 2965.5~h, corresponding to 85.2\% of the monitoring period and 97.2\% after external power and network interruptions were excluded. Measurements at two shield positions were combined with tunnel geometry and borehole stratigraphy to reconstruct density corrections relative to a geological reference model, indicating a possible low-density region above and to one side of the tunnel. In a separate static investigation, observations from four detector positions were processed using position-specific U-Net models and multi-view geometry to estimate a candidate buried-pipeline axis. The result was supplied as a spatial constraint for construction planning, but was not independently confirmed. The deployments demonstrate the field feasibility and decision-support potential of muography for subsurface investigation during tunnel construction, while highlighting the need for matched reference measurements, uncertainty quantification and independent validation.}
 
 \keywords{muography; shield tunnelling; density reconstruction; pipeline localisation}
 
@@ -92,15 +92,45 @@ This paper presents a field-deployable three-layer Micromegas muography platform
 
 \section{MUOGRAPHY SYSTEM AND FIELD PERFORMANCE}
 \subsection{Detector and tracking principle}
-The tracking unit comprises three thermally bonded Micromegas layers, each with a $40\times40$~cm$^2$ sensitive area and separated by approximately 15~cm \autocite{feng2021thermal}. Orthogonal strip readouts provide two-dimensional hit positions with an effective pitch of 1.6~mm, allowing each muon trajectory to be reconstructed by fitting hits across the three layers. Compact front-end cards digitise the signals, while a central data acquisition board forms inter-layer coincidences and aggregates the events. Optical fibres connect the front-end electronics to the acquisition board, and data are transferred to the control computer via USB~3.0 \autocite{wang2025readout,liu2025backend}.
+The tracking unit comprises three thermally bonded Micromegas layers, each with a $40\times40$~cm$^2$ sensitive area and separated by approximately 15~cm \autocite{feng2021thermal}. Orthogonal strip readouts provide two-dimensional hit positions with an effective pitch of 1.6~mm, allowing each muon trajectory to be reconstructed by fitting hits across the three layers. Compact front-end cards digitise the signals, while a central data acquisition board forms inter-layer coincidences and aggregates the events. Optical fibres connect the front-end electronics to the acquisition board, and data are transferred to the control computer via USB~3.0 \autocite{wang2025readout,liu2025backend}. Table~\ref{tab:specs} summarises the main specifications of the deployed system.
+
+\begin{table}[htbp]
+\caption{Main specifications of the muography system.}
+\label{tab:specs}\centering
+\fontsize{10pt}{12pt}\selectfont
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{5pt}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}Xl>{\raggedright\arraybackslash}X@{}}
+\toprule
+Item & Value & Item & Value\\
+\midrule
+Detector & Micromegas, 3 layers & Main enclosure & $700\times450\times800$~mm, 85~kg\\
+Sensitive area & $400\times400$~mm per layer & Gas enclosure & $350\times330\times750$~mm, 25~kg\\
+Layer spacing & 150~mm (300~mm baseline) & Protection & IP56\\
+Readout & X--Y strips, 1.6~mm pitch & Power & 220~V AC, 800~W\\
+Layer efficiency & $>95\%$ (nominal) & Data interfaces & Ethernet, RS485\\
+Angular resolution & $0.3^\circ$ (nominal) & Inclination & $35^\circ$, adjustable\\
+Max.\ event rate & 3~kHz & Monitoring & Temperature, humidity, inclination, vibration\\
+\bottomrule
+\end{tabularx}
+\end{table}
 
 \subsection{Field-compatible system design}
-The main enclosure integrates the detectors, readout electronics, power supplies and active temperature and humidity controls in a compact arrangement. A separate enclosure houses the argon--carbon-dioxide gas supply, simplifying access to the consumable subsystem. For TBM-mounted operation, four pneumatic isolators separate the inclined detector frame from the shield support platform. These measures were intended to limit environmental and mechanical disturbances while allowing the same transportable instrument to be repositioned for stationary measurements. Figure~\ref{fig:installation} shows the enclosure design with dimensions (a), internal arrangement (b) and installation on the TBM (c).
+Shield tunnelling exposes the instrument to heat and humidity, machine vibration, a continuously changing observation geometry and limited access for maintenance. The IP56 main enclosure integrates the detectors, readout electronics, power supplies and a sealed air-conditioning unit that controls internal temperature and humidity. For TBM-mounted operation, four pneumatic isolators separate the inclined detector frame from the shield support platform, and vibration sensors on the platform and inside the enclosure record the vibration on each side of the isolators. An inclinometer records the detector inclination so that each measurement can be associated with its observation geometry. A dedicated gas-control subsystem in a separate enclosure supplies the argon--carbon-dioxide mixture with much lower consumption than laboratory flow-gas operation; a single 8~L cylinder at 10~MPa sustained approximately three months of field operation, which set the routine maintenance interval. Detector status, environmental and vibration data are available over Ethernet or RS485 for remote monitoring. Figure~\ref{fig:installation} shows the enclosure design with dimensions (a), internal arrangement (b) and installation on the TBM (c).
 
 \subsection{Field deployment and operational performance}
 The system operated at depths of approximately 15--30~m in the Guihua Station--Songyuanxia Station interval from 6~November~2025 to 27~July~2026, covering 1371 rings (428 on the left line and 943 on the right). It was installed approximately 5~m behind the cutterhead on the left line and 15~m behind it on the right. Detector positions and orientations were associated with the corresponding ring records for subsequent analysis. Monitored enclosure temperatures remained below $40\,^{\circ}$C and relative humidity below 70\%.
 
-On the right line, normal acquisition totalled 2965.5~h, or 85.2\% of the 3480.0~h monitoring record. The availability was 97.2\% after 401.5~h of external power loss and 28.3~h of network interruption were excluded. The remaining 84.7~h comprised system maintenance. These figures describe the achieved field operation; the available records do not isolate the individual effects of environmental control and pneumatic isolation.
+On the right line, normal acquisition totalled 2965.5~h, or 85.2\% of the 3480.0~h monitoring record. The availability was 97.2\% after 401.5~h of external power loss and 28.3~h of network interruption were excluded. The remaining 84.7~h comprised system maintenance.
+
+Figure~\ref{fig:vibration} shows a 34~h record from 14--15 February 2026. Platform vibration began at 19:15 and continued for the remaining 14.7~h, with a typical peak particle velocity (PPV, vector sum of three axes) of 0.21~mm/s, 99\% of readings below 2.8~mm/s and a maximum of 3.7~mm/s. No vibration was recorded inside the enclosure during this period. The reconstructed three-layer track rate was 13.54~min$^{-1}$ in the 19.2~h before platform vibration began and 13.34~min$^{-1}$ during it, a difference of about 1.2 standard errors, and its 5-min fluctuations (1.46 and 1.60~min$^{-1}$) were consistent with counting statistics alone (about 1.6~min$^{-1}$). Within this record, platform vibration was therefore not transmitted to the detectors at a detectable level, and detector operation was not measurably affected.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figure_vibration_isolation.pdf}
+\caption{Vibration isolation during TBM operation, 14--15 February 2026 (Beijing time): (a) PPV on the shield support platform outside the isolators; (b) PPV inside the detector enclosure; (c) reconstructed three-layer muon track rate in 5-min windows, with period means (dashed). Shading marks the period with platform vibration.}
+\label{fig:vibration}
+\end{figure}
 
 \begin{figure}[htbp]
 \centering
@@ -344,7 +374,7 @@ The line is a candidate axis, not independent confirmation. The networks were ev
 
 \section{DISCUSSION}
 \subsection{Instrumentation lessons}
-The campaign shows that one transportable Micromegas system can support dynamic TBM-mounted and stationary multi-position measurements. Most right-line downtime arose from external power and network interruptions, making site infrastructure part of the deployment design.
+The campaign shows that one transportable Micromegas system can support dynamic TBM-mounted and stationary multi-position measurements. Pneumatic isolation kept TBM vibration from the detectors, and the low-consumption gas supply allowed about three months between routine services. Most right-line downtime arose from external power and network interruptions, making site infrastructure part of the deployment design.
 
 \subsection{Investigation capability}
 Acquisition required approximately 21--34~h per position, making the present system more suitable for targeted screening than immediate warning. Directional measurements should be combined with boreholes, construction geometry and conventional investigations rather than treated as stand-alone confirmation.
@@ -353,7 +383,7 @@ Acquisition required approximately 21--34~h per position, making the present sys
 Quantitative interpretation remains limited by reference compatibility, sparse viewpoints and unquantified uncertainty. Future work should use matched sky references, systematic pose records, additional views, sensitivity studies and independently confirmed targets.
 
 \section{CONCLUSIONS}
-A three-layer Micromegas system completed sustained field deployment on Shenzhen Metro Line~22. Right-line acquisition availability was 85.2\% overall and 97.2\% after external interruptions were excluded. Dynamic measurements indicated a possible low-density region relative to the borehole model, with a mean correction of $-0.36$~g\,cm$^{-3}$ in the selected region. A static four-position investigation produced a candidate pipeline axis for avoidance planning. These results establish field feasibility and decision-support potential, but require improved reference measurements, additional viewpoints, uncertainty quantification and independent validation.
+A three-layer Micromegas system completed sustained field deployment on Shenzhen Metro Line~22. Right-line acquisition availability was 85.2\% overall and 97.2\% after external interruptions were excluded, and platform vibration during TBM operation was not detected inside the isolated enclosure. Dynamic measurements indicated a possible low-density region relative to the borehole model, with a mean correction of $-0.36$~g\,cm$^{-3}$ in the selected region. A static four-position investigation produced a candidate pipeline axis for avoidance planning. These results establish field feasibility and decision-support potential, but require improved reference measurements, additional viewpoints, uncertainty quantification and independent validation.
 
 \section*{ACKNOWLEDGEMENTS}
 The authors acknowledge Shenzhen Metro Group Co., Ltd. for field access and coordination, the University of Science and Technology of China for research support, the Jianwei teams for equipment and maintenance, and the site personnel for assistance with installation and data acquisition.
