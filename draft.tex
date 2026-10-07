@@ -79,7 +79,7 @@ Z.~Xiong\textsuperscript{3}, K.~Li\textsuperscript{3},
 \textsuperscript{*}Corresponding authors: Yong Zhou (\nolinkurl{zhouyong@jwky.com});\\
 Liping Huang (\nolinkurl{huanglp@shenzhenmc.com}).}
 
-\abstract{Uncertain ground conditions and buried utilities complicate shield tunnelling, while boreholes and surface investigations may provide incomplete coverage in dense urban settings. Cosmic-ray muography offers a passive means of investigating subsurface density, but field deployment requires instrumentation that can operate under construction vibration, elevated temperature, high humidity and restricted access. This paper presents a field-deployable three-layer Micromegas muography system and two applications on Shenzhen Metro Line~22. The system incorporates environmental control, pneumatic vibration isolation, a low-consumption gas supply, condition monitoring and integrated data acquisition for both mobile and stationary measurements. Aboard tunnel boring machines, it operated at depths of about 15--30~m over 1371 rings; on the right line, acquisition availability was 85.2\%, or 97.2\% excluding external power and network interruptions, and platform vibration was not detected inside the isolated enclosure. Measurements at two shield positions were combined with tunnel geometry and borehole logs to extend the borehole density model into three dimensions, indicating a possible low-density region above and to one side of the tunnel. In a separate investigation, a disused pipeline that ground-penetrating radar had failed to locate was surveyed from four positions in the completed parallel tunnel; position-specific U-Net models and multi-view geometry reconstructed its axis, and the construction team adjusted the tunnel alignment and passed the pipeline without interference. The deployments demonstrate the field feasibility and decision-support value of muography during tunnel construction, while highlighting the need for faster imaging, matched reference measurements and uncertainty quantification.}
+\abstract{Uncertain ground conditions and buried utilities complicate shield tunnelling, while boreholes and surface investigations may provide incomplete coverage in dense urban settings. Cosmic-ray muography offers a passive means of investigating subsurface density, but field deployment requires instrumentation that can operate under construction vibration, elevated temperature, high humidity and restricted access. This paper presents a field-deployable three-layer Micromegas muography system and two applications on Shenzhen Metro Line~22. The system incorporates environmental control, pneumatic vibration isolation, a low-consumption gas supply, condition monitoring and integrated data acquisition for both mobile and stationary measurements. Aboard tunnel boring machines, it operated at depths of about 15--30~m over 1371 rings; on the right line, acquisition availability was 85.2\%, or 97.2\% excluding external power and network interruptions, and platform vibration was not detected inside the isolated enclosure. Measurements at two shield positions were combined with tunnel geometry and borehole logs to extend the borehole density model into three dimensions, indicating a possible low-density region above and to one side of the tunnel. In a separate investigation, a disused pipeline that ground-penetrating radar had failed to locate was surveyed from four positions in the completed parallel tunnel; position-specific U-Net models and multi-view geometry estimated its axis. On this basis the construction team adjusted the tunnel alignment and passed the location without interference, although the pipe position was not verified directly. The deployments demonstrate the field feasibility and decision-support value of muography during tunnel construction, while highlighting the need for faster imaging, matched reference measurements and uncertainty quantification.}
 
 \keywords{muography; shield tunnelling; density reconstruction; pipeline localisation}
 
@@ -157,7 +157,7 @@ Figure~\ref{fig:vibration} shows a 34~h record from 14--15 February 2026. Platfo
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{figure_vibration_isolation.pdf}
+\includegraphics{figure_vibration_isolation.pdf}
 \caption{Vibration isolation during TBM operation, 14--15 February 2026 (Beijing time): (a) PPV on the shield support platform outside the isolators; (b) PPV inside the detector enclosure; (c) reconstructed three-layer muon track rate in 5-min windows, with period means (dashed). Shading marks the period with platform vibration.}
 \label{fig:vibration}
 \end{figure}
@@ -188,38 +188,45 @@ The result indicates a possible low-density region, not a confirmed void. The ma
 
 \section{FIELD DEMONSTRATION II: STATIC MULTI-POSITION PIPELINE INVESTIGATION}
 \subsection{Engineering objective}
-A disused pipeline, about 17~m deep, appeared on the site map but could not be found at the mapped position during manual investigation. The right-line tunnel under construction was designed to pass only about 0.8~m beneath it, so its actual position was needed to judge the risk of interference. Ground-penetrating radar gave incorrect results, and no other effective method was available, so muography was used to locate the pipe.
+A disused pipeline, about 17~m deep, appeared on the site map but could not be found at the mapped position during manual investigation. The right-line tunnel under construction was designed to pass only about 0.8~m beneath it, so its actual position was needed to judge the risk of interference. Ground-penetrating radar gave incorrect results, and no other effective method was available, so muography was used to estimate its position.
 
 \subsection{Survey arrangement}
-The detector was deployed in the completed left-line tunnel, facing the right line under construction about 15~m away. It was placed in turn at four positions spread over about 11~m along the tunnel, each oriented towards the region where the pipeline was most likely to lie (Figure~\ref{fig:pipeline}a--d), and recorded for about one day at each. A shared open-sky reference was used for all four positions, and the detector poses were surveyed for the reconstruction.
+The detector was deployed in the completed left-line tunnel, facing the right line under construction about 15~m away. It was placed in turn at four positions spread over about 11~m along the tunnel, each oriented towards the region where the pipeline was most likely to lie (Figure~\ref{fig:pipeline}, top), and recorded for about one day at each. A shared open-sky reference was used for all four positions, and the detector poses were surveyed for the reconstruction.
 
 \begin{figure}[tbp]
 \centering
-\begin{tikzpicture}
-\node[anchor=north west,inner sep=0] (A) at (0,0) {\includegraphics[width=0.244\textwidth]{pipeline_field_p0.png}};
-\node[anchor=north west,inner sep=0] (B) at ([xshift=1mm]A.north east) {\includegraphics[width=0.244\textwidth]{pipeline_field_p1.png}};
-\node[anchor=north west,inner sep=0] (C) at ([xshift=1mm]B.north east) {\includegraphics[width=0.244\textwidth]{pipeline_field_p2.png}};
-\node[anchor=north west,inner sep=0] (D) at ([xshift=1mm]C.north east) {\includegraphics[width=0.244\textwidth]{pipeline_field_p3.png}};
-\foreach \panel/\letter in {A/a,B/b,C/c,D/d}{
-\node[anchor=north west,fill=white,fill opacity=0.72,text opacity=1,
-      inner xsep=3pt,inner ysep=2pt,font=\bfseries\fontsize{9}{10}\selectfont]
-      at ([xshift=0.5mm,yshift=-0.5mm]\panel.north west) {(\letter)};
-}
-\node[anchor=north west,inner sep=0] (R) at ([yshift=-2mm]A.south west) {\includegraphics[width=0.60\textwidth]{figure5_pipeline_projected_ridges.pdf}};
-\node[anchor=north east,inner sep=0] (E) at ([yshift=-2mm]D.south east) {\includegraphics[width=0.38\textwidth]{figure6_pipeline_axis_horizontal.pdf}};
-\node[anchor=north west,fill=white,fill opacity=0.72,text opacity=1,
-      inner xsep=3pt,inner ysep=2pt,font=\bfseries\fontsize{9}{10}\selectfont]
-      at ([xshift=0.5mm,yshift=-0.5mm]E.north west) {(e)};
+\begin{tikzpicture}[x=1mm,y=1mm]
+\node[anchor=north west,inner sep=0] (P0) at (9.06,0) {\includegraphics[width=34.48mm]{pipeline_field_p0.png}};
+\node[anchor=north west,fill=white,fill opacity=0.72,text opacity=1,inner xsep=3pt,inner ysep=2pt,font=\bfseries\fontsize{9}{10}\selectfont] at ([xshift=0.5mm,yshift=-0.5mm]P0.north west) {(a)};
+\node[anchor=north west,inner sep=0] (M0) at ([yshift=-1.5mm]P0.south west) {\includegraphics[trim=30.72pt 31.92pt 369.60pt 0.00pt,clip,width=34.48mm]{figure5_pipeline_projected_ridges.pdf}};
+\node[anchor=north west,inner sep=0] (P1) at (44.55,0) {\includegraphics[width=34.48mm]{pipeline_field_p1.png}};
+\node[anchor=north west,fill=white,fill opacity=0.72,text opacity=1,inner xsep=3pt,inner ysep=2pt,font=\bfseries\fontsize{9}{10}\selectfont] at ([xshift=0.5mm,yshift=-0.5mm]P1.north west) {(b)};
+\node[anchor=north west,inner sep=0] (M1) at ([yshift=-1.5mm]P1.south west) {\includegraphics[trim=153.36pt 31.92pt 247.20pt 0.00pt,clip,width=34.48mm]{figure5_pipeline_projected_ridges.pdf}};
+\node[anchor=north west,inner sep=0] (P2) at (80.03,0) {\includegraphics[width=34.48mm]{pipeline_field_p2.png}};
+\node[anchor=north west,fill=white,fill opacity=0.72,text opacity=1,inner xsep=3pt,inner ysep=2pt,font=\bfseries\fontsize{9}{10}\selectfont] at ([xshift=0.5mm,yshift=-0.5mm]P2.north west) {(c)};
+\node[anchor=north west,inner sep=0] (M2) at ([yshift=-1.5mm]P2.south west) {\includegraphics[trim=275.76pt 31.92pt 124.56pt 0.00pt,clip,width=34.48mm]{figure5_pipeline_projected_ridges.pdf}};
+\node[anchor=north west,inner sep=0] (P3) at (115.52,0) {\includegraphics[width=34.48mm]{pipeline_field_p3.png}};
+\node[anchor=north west,fill=white,fill opacity=0.72,text opacity=1,inner xsep=3pt,inner ysep=2pt,font=\bfseries\fontsize{9}{10}\selectfont] at ([xshift=0.5mm,yshift=-0.5mm]P3.north west) {(d)};
+\node[anchor=north west,inner sep=0] (M3) at ([yshift=-1.5mm]P3.south west) {\includegraphics[trim=398.40pt 31.92pt 2.16pt 0.00pt,clip,width=34.48mm]{figure5_pipeline_projected_ridges.pdf}};
+\node[anchor=north east,inner sep=0] at (M0.north west) {\includegraphics[trim=0.00pt 31.92pt 482.64pt 0.00pt,clip,width=9.06mm]{figure5_pipeline_projected_ridges.pdf}};
+\node[anchor=north,inner sep=0] at ([yshift=-0.5mm]$(M1.south east)!0.5!(M2.south west)$) {\includegraphics[trim=31.20pt 0.00pt 158.16pt 150.00pt,clip,width=95.59mm]{figure5_pipeline_projected_ridges.pdf}};
 \end{tikzpicture}
-\caption{Pipeline investigation. Top: detector deployment at (a) P0, (b) P1, (c) P2 and (d) P3. Bottom left: directional maps at the same positions, with colours showing within-view network scores and lines marking fitted ridges (coordinates are detector-local slopes; RMS is the ridge residual). (e) Reconstructed pipeline axis: coloured ray fans are the backprojection planes from P0--P3, and the orange tube shows the pipe with its recorded diameter of 0.8~m.}
+\caption{Pipeline survey at positions (a) P0, (b) P1, (c) P2 and (d) P3: detector deployment (top) and the corresponding directional maps (bottom). Colours show within-view scaled network scores and lines mark fitted ridges; coordinates are detector-local slopes and RMS is the ridge residual.}
 \label{fig:pipeline}
 \end{figure}
 
 \subsection{Algorithm design}
-The workflow separated feature detection from three-dimensional localisation. First, a position-specific U-Net \autocite{ronneberger2015} was trained on simulated directional maps containing pipelines with varied locations and orientations, together with cases containing no pipeline, and reached an area under the ROC curve above 0.95 on simulated test data. Each network converted its field map into relative feature scores, which indicate pipeline-like structure but are not calibrated probabilities. All four field maps contained an extended ridge (Figure~\ref{fig:pipeline}, bottom left). A straight ridge was then fitted to the high-score region in each map, and the measured detector poses transformed the four ridges into backprojection planes in a common tunnel frame. The pipeline axis is the line most consistent with all four planes, with views weighted by ridge quality and a soft preference for a near-horizontal direction reflecting the expected utility geometry.
+The workflow separated feature detection from three-dimensional localisation. First, a position-specific U-Net \autocite{ronneberger2015} was trained on simulated directional maps containing pipelines with varied locations and orientations, together with cases containing no pipeline, and reached an area under the ROC curve above 0.95 on simulated test data. Each network converted its field map into relative feature scores, which indicate pipeline-like structure but are not calibrated probabilities. All four field maps contained an extended ridge (Figure~\ref{fig:pipeline}, bottom). A straight ridge was then fitted to the high-score region in each map, and the measured detector poses transformed the four ridges into backprojection planes in a common tunnel frame. The pipeline axis is the line most consistent with all four planes, with views weighted by ridge quality and a soft preference for a near-horizontal direction reflecting the expected utility geometry.
 
 \subsection{Results and engineering use}
-The four views converged on a single, nearly horizontal axis crossing the tunnel alignment at about $47^\circ$ (Figure~\ref{fig:pipeline}e), giving the orientation and burial position of the `missing' pipe. Based on this result, the construction team changed the vertical alignment of the designed right-line tunnel, and the shield passed through the region without interfering with the pipeline. The axis was derived from simulation-trained networks and surveyed detector poses, and no positional uncertainty was estimated.
+The four views converged on a single, nearly horizontal candidate axis crossing the tunnel alignment at about $47^\circ$ (Figure~\ref{fig:axis}), providing an estimate of the orientation and burial position of the `missing' pipe. Based on this result, the construction team changed the vertical alignment of the designed right-line tunnel, and the shield passed through the region without interference. The pipeline position itself was not verified by boreholes or other direct means; the axis also depends on simulation-trained networks and surveyed detector poses, and no positional uncertainty was estimated.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.56\textwidth]{figure6_pipeline_axis_horizontal.pdf}
+\caption{Three-dimensional candidate pipeline axis with the horizontal soft constraint. Coloured ray fans represent the backprojection planes from P0--P3; the orange tube shows the candidate pipe with its recorded diameter of 0.8~m.}
+\label{fig:axis}
+\end{figure}
 
 \section{DISCUSSION}
 \subsection{Instrumentation lessons}
@@ -281,7 +288,7 @@ Excavation of one ring takes hours, depending on soil and ground conditions, whe
 
 
 \section{CONCLUSIONS}
-A three-layer Micromegas system completed sustained field deployment on Shenzhen Metro Line~22. Right-line acquisition availability was 85.2\% overall and 97.2\% after external interruptions were excluded, and platform vibration during TBM operation was not detected inside the isolated enclosure. TBM-mounted measurements extended the borehole model into three dimensions and indicated a possible low-density region above the tunnel. A four-position survey from the completed parallel tunnel located a buried pipeline that conventional methods had missed, and the construction team adjusted the tunnel alignment to pass it without interference. These results show the field feasibility and decision-support value of muography in shield tunnelling; faster imaging, matched reference measurements and uncertainty quantification are the next steps towards routine use.
+A three-layer Micromegas system completed sustained field deployment on Shenzhen Metro Line~22. Right-line acquisition availability was 85.2\% overall and 97.2\% after external interruptions were excluded, and platform vibration during TBM operation was not detected inside the isolated enclosure. TBM-mounted measurements extended the borehole model into three dimensions and indicated a possible low-density region above the tunnel. A four-position survey from the completed parallel tunnel estimated the axis of a buried pipeline that conventional methods had failed to locate; the construction team adjusted the tunnel alignment on this basis and passed without interference, although the pipe position was not verified directly. These results show the field feasibility and decision-support value of muography in shield tunnelling; faster imaging, matched reference measurements and uncertainty quantification are the next steps towards routine use.
 
 \section*{ACKNOWLEDGEMENTS}
 The authors acknowledge Shenzhen Metro Group Co., Ltd. for field access and coordination, the University of Science and Technology of China for research support, the Jianwei teams for equipment and maintenance, and the site personnel for assistance with installation and data acquisition.
