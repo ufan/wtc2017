@@ -1,4 +1,4 @@
-﻿WTC2027 作者审阅包 / Author review package
+WTC2027 作者审阅包 / Author review package
 日期 / Date: 2026-09-30
 
 请首先打开 draft.pdf。当前论文共 8 页，包含图表和参考文献。

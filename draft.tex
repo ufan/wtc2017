@@ -7,6 +7,7 @@
 \usepackage{multirow}
 \usepackage{graphicx}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,backgrounds}
 \usepackage{amsmath}
 \usepackage{array}
 \usepackage{tabularx}
@@ -72,29 +73,34 @@ Z.~Xiong\textsuperscript{3}, K.~Li\textsuperscript{3},
 \textsuperscript{*}Corresponding authors: Yong Zhou (\nolinkurl{zhouyong@jwky.com});\\
 Liping Huang (\nolinkurl{huanglp@shenzhenmc.com}).}
 
-\abstract{Uncertain ground conditions and buried utilities pose challenges to shield tunnelling. Cosmic-ray muography uses the attenuation of naturally occurring penetrating particles to investigate subsurface density variations, complementing conventional geological surveys without an artificial radiation source. However, mounting a muon detector on an operating tunnel boring machine exposes it to persistent mechanical vibration, elevated temperatures and high humidity. These conditions can compromise detector stability and data quality. This paper presents a robust three-layer Micromegas muography system developed for these conditions and two field applications on Shenzhen Metro Line~22. Active temperature and humidity control, combined with pneumatic vibration isolation, enabled stable muon data acquisition in the shield construction environment. In the first application, the system was deployed on operating tunnel boring machines, and the collected measurements were used for three-dimensional reconstruction of the surrounding ground density. The reconstruction incorporated the tunnel geometry and used borehole stratigraphy to represent the geological background. Comparison with the borehole-derived geological model suggested a possible low-density region above and to one side of the tunnel. In the second application, observations from four detector positions were used to investigate a suspected buried pipeline. Directional features extracted using U-Net models were combined across multiple viewpoints to estimate a candidate pipeline axis in three-dimensional space. The inferred location informed recommendations provided to the construction team for pipeline avoidance during shield advance. Together, these field applications demonstrate the technical feasibility of the developed instrumentation and the practical value of muographic data for subsurface engineering.}
+\abstract{Uncertain ground conditions and buried utilities complicate shield tunnelling, while boreholes and surface investigations may provide incomplete coverage in dense urban settings. Cosmic-ray muography offers a passive means of investigating subsurface density, but field deployment requires instrumentation that can operate under construction vibration, elevated temperature, high humidity and restricted access. This paper presents a field-deployable three-layer Micromegas muography system and two applications on Shenzhen Metro Line~22. The system incorporates environmental control, pneumatic vibration isolation and integrated data acquisition for both mobile and stationary measurements. During dynamic deployment aboard tunnel boring machines, it operated at depths of approximately 15--30~m over 1371 rings. On the right line, normal acquisition totalled 2965.5~h, corresponding to 85.2\% of the monitoring period and 97.2\% after external power and network interruptions were excluded. Measurements at two shield positions were combined with tunnel geometry and borehole stratigraphy to reconstruct density corrections relative to a geological reference model, indicating a possible low-density region above and to one side of the tunnel. In a separate static investigation, observations from four detector positions were processed using position-specific U-Net models and multi-view geometry to estimate a candidate buried-pipeline axis. The result was supplied as a spatial constraint for construction planning, but was not independently confirmed. The deployments demonstrate the field feasibility and decision-support potential of muography for subsurface investigation during tunnel construction, while highlighting the need for matched reference measurements, uncertainty quantification and independent validation.}
 
 \keywords{muography; shield tunnelling; density reconstruction; pipeline localisation}
 
 \chapter{Subsurface imaging in shield tunnelling and pipeline localisation via a robust cosmic-ray muography system: a field study}
 
 \section{INTRODUCTION}
-Uncertain ground conditions and buried utilities can interrupt shield advance and threaten surrounding infrastructure. Boreholes provide direct but spatially discrete geological information, while urban access restrictions and ongoing construction can constrain surface investigations. Measurements acquired from within a tunnel can complement these surveys by providing information about the ground surrounding the excavation. Muon detection systems designed for deployment within tunnels offer a way to obtain these observations during shield construction.
+Uncertain ground conditions and buried utilities can interrupt shield advance and threaten surrounding infrastructure. Boreholes provide direct but spatially discrete geological information, while urban access restrictions and ongoing construction can constrain surface investigations. Measurements acquired from within a tunnel can therefore complement conventional surveys by providing directional information about the ground surrounding the excavation.
 
-Cosmic-ray muography exploits muons produced when primary cosmic rays interact with the atmosphere. Their penetrating ability allows a fraction of them to reach underground detectors after traversing soil and rock. Muon imaging can use either attenuation or scattering; the transmission approach used here measures the directional flux remaining after passage through the target \autocite{procureur2018}. A tracking detector reconstructs particle directions from hit positions measured in multiple sensitive layers. The measured muon flux is compared with an open-sky reference and interpreted using a muon spectrum and an energy-loss model to estimate opacity. This quantity represents the density integrated along the muon path. Measurements from different directions and positions can then be combined with tunnel geometry and geological information to reconstruct density variations. This provides a passive observation method without an artificial radiation source or direct access to the target.
+Cosmic-ray muography exploits atmospheric muons that retain sufficient energy to reach an underground detector after traversing soil and rock. The transmission approach used here measures the directional flux remaining after passage through the target \autocite{procureur2018}. Particle directions are reconstructed from hit positions in multiple tracking layers, and the underground flux is compared with an open-sky reference to estimate opacity, or density integrated along the muon path. Measurements from different directions and positions can then be combined with tunnel geometry and geological information to investigate density variations. The method is passive and requires neither an artificial radiation source nor direct access to the target.
 
-Previous studies have used underground muon measurements to investigate overburden density and concealed structures around tunnels. Four detector locations beneath the Los Alamos mesa were used to reconstruct the overburden density and rock--air interface \autocite{guardincerri2017}. A railway-tunnel survey identified density anomalies associated with hidden construction shafts and an overburden void subsequently confirmed by the railway authorities \autocite{thompson2020}. Measurements along a subway station and tunnel detected changes in overburden structure and anomalies associated with construction features \autocite{mao2023}.
+Previous underground studies have reconstructed overburden density and rock--air interfaces from multiple detector locations \autocite{guardincerri2017}, identified concealed construction shafts and a subsequently confirmed overburden void in a railway tunnel \autocite{thompson2020}, and detected structural changes along a subway station and tunnel \autocite{mao2023}. These studies establish the potential of tunnel-based measurements, but sustained deployment during active shield construction introduces additional instrumentation and operational requirements.
 
-Applying muography on an operating tunnel boring machine (TBM) requires reliable data acquisition under construction conditions. Mechanical vibration, elevated temperatures and humidity can affect detector stability, electronics and data quality. Confined installation space and access for maintenance also influence instrument design. Stable acquisition must therefore be supported by environmental control and mechanical isolation. As the shield advances, the detector also changes position relative to the ground, requiring the measurements to be analysed with their corresponding observation geometry.
+In particular, mounting a muography system on an operating tunnel boring machine (TBM) exposes the detector and electronics to mechanical vibration, elevated temperature and high humidity. Confined installation space and restricted maintenance access further influence the system design. As the shield advances, the detector position changes relative to the surrounding ground, so each measurement must be associated with its observation geometry. A stationary investigation within a tunnel poses a different requirement: the instrument must be repositioned accurately to combine several views of a fixed target.
 
-This paper presents a robust three-layer Micromegas muography system and two field applications on Shenzhen Metro Line~22. The instrument combines active temperature and humidity control with pneumatic vibration isolation for TBM-mounted measurement. The first application uses underground muon data, tunnel geometry and borehole stratigraphy to reconstruct geological density variations. The second combines U-Net-based extraction of directional features with multi-view geometry to estimate a buried pipeline axis. Together, the applications examine both sustained field operation and the use of muography for subsurface investigation during shield construction.
+This paper presents a field-deployable three-layer Micromegas muography platform supporting both dynamic TBM-mounted measurements and stationary multi-position tunnel investigations. The contributions are: (1) a system combining environmental control, pneumatic isolation and integrated data acquisition for construction conditions; (2) an assessment of sustained operation on Shenzhen Metro Line~22; and (3) two field demonstrations, comprising TBM-mounted ground-density imaging and a four-position investigation of a suspected buried pipeline. Together, these applications examine the instrumentation requirements and decision-support potential of muography during tunnel construction.
 
-\section{MUOGRAPHY SYSTEM AND FIELD OPERATION}
-The system uses three Micromegas tracking layers fabricated by thermal bonding \autocite{feng2021thermal}. Each layer has a $40\times40$~cm$^2$ sensitive area; adjacent layers are approximately 15~cm apart. The detectors use argon with a small fraction of carbon dioxide. Muon ionisation releases electrons that undergo avalanche multiplication. The amplified charge induces signals on orthogonal strips with a 0.4~mm pitch. To improve the signal-to-noise ratio, four adjacent strips are combined into a single readout channel, giving an effective readout pitch of 1.6~mm. The two orthogonal strip sets provide two-dimensional hit positions. Fitting these positions across the three layers reconstructs each muon trajectory. Compact front-end cards use ADAS1128 current-to-digital converters to integrate and digitise the signals \autocite{wang2025readout,analogdevicesadas1128}. A separate data acquisition (DAQ) board distributes clock and trigger signals, applies a coincidence window to front-end triggers and aggregates events. Common trigger identifiers associate signals across layers \autocite{liu2025backend}. Optical fibres link the front-end cards to the DAQ board, which transfers data to the computer via USB~3.0.
+\section{MUOGRAPHY SYSTEM AND FIELD PERFORMANCE}
+\subsection{Detector and tracking principle}
+The tracking unit comprises three thermally bonded Micromegas layers, each with a $40\times40$~cm$^2$ sensitive area and separated by approximately 15~cm \autocite{feng2021thermal}. Orthogonal strip readouts provide two-dimensional hit positions with an effective pitch of 1.6~mm, allowing each muon trajectory to be reconstructed by fitting hits across the three layers. Compact front-end cards digitise the signals, while a central data acquisition board forms inter-layer coincidences and aggregates the events. Optical fibres connect the front-end electronics to the acquisition board, and data are transferred to the control computer via USB~3.0 \autocite{wang2025readout,liu2025backend}.
 
-The main enclosure houses the detectors, readout electronics, power supplies and temperature and humidity controls; a separate enclosure houses the gas supply. Figure~\ref{fig:installation} shows the enclosure design with dimensions (a), internal structure (b) and TBM deployment (c). Four pneumatic isolators separate the inclined frame from the shield support platform, as shown in Figure~\ref{fig:installation}(c).
+\subsection{Field-compatible system design}
+The main enclosure integrates the detectors, readout electronics, power supplies and active temperature and humidity controls in a compact arrangement. A separate enclosure houses the argon--carbon-dioxide gas supply, simplifying access to the consumable subsystem. For TBM-mounted operation, four pneumatic isolators separate the inclined detector frame from the shield support platform. These measures were intended to limit environmental and mechanical disturbances while allowing the same transportable instrument to be repositioned for stationary measurements. Figure~\ref{fig:installation} shows the enclosure design with dimensions (a), internal arrangement (b) and installation on the TBM (c).
 
-The system operated at depths of approximately 15--30~m in the Guihua Station--Songyuanxia Station interval from 6~November~2025 to 27~July~2026, covering 1371 rings (428 left-line and 943 right-line). Installation distances behind the cutterhead were about 5~m on the left line and 15~m on the right. Monitored temperatures remained below $40\,^{\circ}$C and relative humidity below 70\%. Normal acquisition totalled 2965.5~h on the right line: 85.2\% of the 3480.0~h right-line monitoring record, or 97.2\% after excluding external power and network interruptions from that duration. Downtime comprised 84.7~h of maintenance, 401.5~h of power loss and 28.3~h of network interruption.
+\subsection{Field deployment and operational performance}
+The system operated at depths of approximately 15--30~m in the Guihua Station--Songyuanxia Station interval from 6~November~2025 to 27~July~2026, covering 1371 rings (428 on the left line and 943 on the right). It was installed approximately 5~m behind the cutterhead on the left line and 15~m behind it on the right. Detector positions and orientations were associated with the corresponding ring records for subsequent analysis. Monitored enclosure temperatures remained below $40\,^{\circ}$C and relative humidity below 70\%.
+
+On the right line, normal acquisition totalled 2965.5~h, or 85.2\% of the 3480.0~h monitoring record. The availability was 97.2\% after 401.5~h of external power loss and 28.3~h of network interruption were excluded. The remaining 84.7~h comprised system maintenance. These figures describe the achieved field operation; the available records do not isolate the individual effects of environmental control and pneumatic isolation.
 
 \begin{figure}[htbp]
 \centering
@@ -121,13 +127,84 @@ The system operated at depths of approximately 15--30~m in the Guihua Station--S
 \label{fig:installation}
 \end{figure}
 
-\section{TBM-MOUNTED GEOLOGICAL DENSITY IMAGING}
-\subsection{Measurements and geological model}
-Muon observations at successive shield positions were combined with borehole stratigraphy to investigate density variations around the tunnel near the Fuzhou Avenue bridge. The primary dataset contains 5240 and 6840 selected underground tracks at rings 1672 and 1679, respectively, and 457,255 matched open-sky tracks. Underground exposures were 21.37 and 34.00~h; the two sky exposures were 20.97 and 66.52~h. The same detector hardware, track-reconstruction procedure and selection criteria were used for the open-sky and underground measurements.
+\begin{figure}[htbp]
+\centering
+\resizebox{0.90\textwidth}{!}{%
+\begin{tikzpicture}[
+  font=\sffamily\small,
+  >=Latex,
+  box/.style={draw=black!75,rounded corners=2pt,line width=0.55pt,
+    align=center,minimum height=10mm,inner sep=4pt},
+  common/.style={box,fill=blue!12,text width=48mm},
+  density/.style={box,fill=green!11,text width=57mm},
+  pipeline/.style={box,fill=orange!15,text width=57mm},
+  arrow/.style={-{Latex[length=2.3mm]},line width=0.75pt,draw=black!75},
+  branchlabel/.style={font=\sffamily\bfseries\small,text=black!80}
+]
+\node[common] (acquire) at (-35mm,0)
+  {Field measurements and detector poses\\Application-specific context};
+\node[common] (maps) at (35mm,0)
+  {Track reconstruction and quality control\\Directional muon maps};
+\draw[arrow] (acquire) -- (maps);
+
+\node[branchlabel] (dlabel) at (-35mm,-22mm)
+  {Demonstration I: density imaging};
+\node[branchlabel] (plabel) at (35mm,-22mm)
+  {Demonstration II: pipeline localisation};
+
+\node[density,below=3mm of dlabel] (dinput)
+  {Borehole stratigraphy, tunnel geometry\\and open-sky reference};
+\node[density,below=5mm of dinput] (dinvert)
+  {Physics-based inversion with geological\\and spatial regularisation};
+\node[density,below=5mm of dinvert] (dout)
+  {3D density corrections and\\cross-position consistency checks};
+\node[density,below=5mm of dout] (ddecision)
+  {Possible density anomaly\\for geological screening};
+
+\node[pipeline,below=3mm of plabel] (pinput)
+  {Simulated training data, tunnel geometry\\and four detector poses};
+\node[pipeline,below=5mm of pinput] (pdetect)
+  {Position-specific U-Nets and\\directional ridge extraction};
+\node[pipeline,below=5mm of pdetect] (pfuse)
+  {Pose-based multi-view geometric fusion\\with a near-horizontal preference};
+\node[pipeline,below=5mm of pfuse] (pdecision)
+  {Candidate pipeline axis\\for avoidance planning};
+
+\draw[arrow,draw=green!55!black] (maps.south) -- ++(0,-5mm) -| (dlabel.north);
+\draw[arrow,draw=orange!80!black] (maps.south) -- ++(0,-5mm) -| (plabel.north);
+\draw[arrow,draw=green!55!black] (dinput) -- (dinvert);
+\draw[arrow,draw=green!55!black] (dinvert) -- (dout);
+\draw[arrow,draw=green!55!black] (dout) -- (ddecision);
+\draw[arrow,draw=orange!80!black] (pinput) -- (pdetect);
+\draw[arrow,draw=orange!80!black] (pdetect) -- (pfuse);
+\draw[arrow,draw=orange!80!black] (pfuse) -- (pdecision);
+
+\begin{scope}[on background layer]
+  \node[fit=(plabel)(pinput)(pdecision),fill=orange!5,rounded corners=4pt,
+    inner sep=7pt] {};
+  \node[fit=(dlabel)(dinput)(ddecision),fill=green!4,rounded corners=4pt,
+    inner sep=7pt] {};
+\end{scope}
+\end{tikzpicture}%
+}
+\caption{Overall analysis workflow for the two field demonstrations. Common track reconstruction and directional mapping are followed by a physics-based density inversion in Demonstration~I and a learning-assisted multi-view localisation procedure in Demonstration~II.}
+\label{fig:workflow}
+\end{figure}
+
+\noindent\begin{minipage}{\textwidth}
+The two field demonstrations shared the same measurement chain but used different interpretation strategies, as summarised in Figure~\ref{fig:workflow}. The first used physics-based inversion to estimate density corrections relative to a geological model, whereas the second combined learned directional-feature extraction with multi-view geometry to estimate a candidate pipeline axis.
+\end{minipage}
+
+\section{FIELD DEMONSTRATION I: TBM-MOUNTED GROUND-DENSITY IMAGING}
+\subsection{Engineering objective and site conditions}
+The first demonstration examined whether measurements acquired during shield advance could identify density variations relative to the available geological model. Near the Fuzhou Avenue bridge, borehole stratigraphy provided a reference and two successive shield positions provided different viewing geometries. The result was intended for geological screening rather than confirmation of a specific feature.
+
+\subsection{Measurements and reference model}
+The primary dataset contains 5240 and 6840 selected underground tracks at rings 1672 and 1679, respectively. Underground exposures were 21.37 and 34.00~h. The corresponding open-sky reference measurements contained 457,255 selected tracks, with exposures of 20.97 and 66.52~h. The same detector hardware, track-reconstruction procedure and selection criteria were used for the open-sky and underground measurements.
 
 In the geological survey frame, $Y$ is upward, $Z$ points towards decreasing ring number and $X$ is transverse. Ring 1672 defines the longitudinal origin and vertical track reference. The detector centres at rings 1672 and 1679 are represented by $(2,0,0)$ and $(2,0.27,-12.66)$~m, respectively. The initial detector-normal elevation was $33.2^\circ$, varying within $\pm0.6^\circ$ during advance.
 
-The geological model uses 11 borehole control points along the tunnel. Table~\ref{tab:boreholes} summarises the stratigraphy and assigned densities at five boreholes around the measurement interval. Each layer is assigned the reference density specified in the geotechnical parameter table, applied consistently across boreholes. Layer boundaries are interpolated along the tunnel and extended uniformly across $X$. The construction drawings specify tunnel inner and outer diameters of 8.0 and 8.8~m. The excavated cavity and 0.4~m lining are modelled separately, with a lining density of 2.4~g\,cm$^{-3}$.
+The geological model uses 11 borehole control points. Table~\ref{tab:boreholes} gives the layer-top depths and assigned reference densities at five boreholes around the measurement interval. Boundaries are interpolated along the tunnel and extended uniformly across $X$. The tunnel inner and outer diameters are 8.0 and 8.8~m; the cavity and 0.4~m lining are modelled separately, with a lining density of 2.4~g\,cm$^{-3}$.
 
 \begin{table}[htbp]
 \caption{Borehole locations and layer-top depths below ground (m), with assigned densities (g\,cm$^{-3}$).}
@@ -158,43 +235,15 @@ Coordinates in parentheses are $(X,Z)$ in metres. All borehole identifiers have 
 \end{minipage}
 \end{table}
 
-\subsection{Joint density reconstruction}
-The reconstruction estimates density corrections to the borehole reference model on a 2~m cubic grid, with $\rho_j=\rho_{0,j}+\delta_j$, where $\rho_{0,j}$ is the reference density and $\delta_j$ its correction in voxel $j$. For ray $q$ from measurement position $r$, the opacity is
-\begin{equation}
- X_{rq}=X_{0,rq}+\sum_j A_{rqj}\delta_j,
-\label{eq:model}
-\end{equation}
-where $X_{0,rq}$ is the reference opacity and $A_{rqj}$ is the rock path length through voxel $j$, calculated from ray--voxel intersections \autocite{siddon1985}. The tunnel interior is treated as air, and the lining contribution remains fixed. Opacities are converted to muon transmission using the spectrum of \textcite{guan2015} and standard-rock energy-loss ranges \autocite{groom2001}.
+\subsection{Algorithm design}
+The reconstruction used a physics-based comparison between measured and predicted directional counts. Its inputs were the underground observations from the two shield positions, the open-sky reference, detector poses, tunnel geometry and borehole-derived geological model. For each trial density distribution on a 2~m grid, ray tracing calculated the material thickness traversed in each direction \autocite{siddon1985}. The resulting opacities were converted to expected muon transmission using the spectrum of \textcite{guan2015} and standard-rock energy-loss ranges \autocite{groom2001}. A Poisson count model then compared the predictions with the sky and underground measurements. A common factor of 0.53 normalised the two underground positions; it was estimated from background directions excluding known bridge piles and may also absorb differences between the sky and underground datasets.
 
-The measured sky and underground counts, $m_b$ and $n_{rb}$, are treated as independent Poisson observations, giving the joint likelihood
-\begin{equation}
- L(\boldsymbol{\delta},\boldsymbol{\lambda})=
- \prod_b\frac{\mu_{s,b}^{m_b}e^{-\mu_{s,b}}}{m_b!}
- \prod_{r,b}\frac{\mu_{rb}^{n_{rb}}e^{-\mu_{rb}}}{n_{rb}!},
- \qquad
- \mu_{s,b}=t_s\lambda_b,\quad
- \mu_{rb}=\eta t_r\lambda_b P_{rb}(\boldsymbol{\delta}),
-\label{eq:likelihood}
-\end{equation}
-where $b$ indexes angular bins and $r$ the two underground positions. The expected counts $\mu_{s,b}$ and $\mu_{rb}$ depend on the sky and underground exposures $t_s$ and $t_r$, open-sky bin rate $\lambda_b$, and bin-averaged transmission $P_{rb}$. The vectors $\boldsymbol{\delta}$ and $\boldsymbol{\lambda}$ collect the density corrections and bin rates. A common factor $\eta=0.53$ normalises both positions, estimated from observed-to-predicted count ratios in background directions excluding known bridge-pile locations in the construction drawings.
+Because only two viewing positions were available, the inversion was constrained by the geological reference and by spatial continuity. Departures from the borehole model were penalised more strongly near boreholes, while smoothing between neighbouring grid cells was reduced across interpreted layer boundaries. The open-sky directional rates and density corrections were estimated jointly within physical bounds. The reconstructed volume therefore represents regularised corrections relative to the borehole model, rather than an independent absolute-density estimate.
 
-The estimates minimise the negative log-likelihood together with geological and spatial penalties:
-\begin{equation}
- (\hat{\boldsymbol{\delta}},\hat{\boldsymbol{\lambda}})
- =\operatorname*{arg\,min}_{\boldsymbol{\delta},\boldsymbol{\lambda}}
- \left[
- -\log L(\boldsymbol{\delta},\boldsymbol{\lambda})
- +\frac{1}{2}\sum_j w_j\delta_j^2
- +\frac{1}{2}\sum_{(j,k)\in\mathcal N}v_{jk}(\delta_j-\delta_k)^2
- \right],
-\label{eq:objective}
-\end{equation}
-where hats denote fitted estimates and $\mathcal N$ contains each face-sharing voxel pair once. The first term fits the counts; the second limits departures from the borehole model with prior weights $w_j$; the third limits abrupt differences between neighbouring corrections with weights $v_{jk}$. Prior weights decrease with distance from boreholes, and neighbour weights are reduced across geological layer boundaries.
+The analysis covered $X=[-48,30]$, $Y=[-6,36]$ and $Z=[-24,42]$~m and fitted 151 adaptive angular bins with widths of $6^\circ$ or $12^\circ$. The two positions were reconstructed jointly to obtain the main result and separately to examine consistency. Each single-position reconstruction was also used to predict the counts at the other position, providing a cross-position check based on Poisson deviance.
 
-For each trial density distribution, the open-sky rates are estimated analytically by maximising $L$. Density corrections are optimised using bounded L-BFGS-B \autocite{zhu1997lbfgsb}. The reconstruction domain is $X=[-48,30]$, $Y=[-6,36]$ and $Z=[-24,42]$~m. Counts are fitted in 151 adaptive angular bins with widths of $6^\circ$ or $12^\circ$. Model transmission within each bin is weighted by the open-sky angular distribution.
-
-\subsection{Reconstructed density distribution}
-Figure~\ref{fig:bridge} compares the count-derived effective opacity with the borehole reference at each measurement position. Both positions show negative opacity differences at large zenith angles, while positive differences are more prominent at ring 1679. Negative values indicate less integrated density along the viewing direction than predicted by the geological model.
+\subsection{Results and consistency checks}
+Figure~\ref{fig:bridge} compares count-derived effective opacity with the borehole reference. Both positions show negative differences at large zenith angles, whereas positive differences are more prominent at ring 1679. Negative values indicate less integrated density than predicted by the reference model.
 
 \begin{figure}[htbp]
 \centering
@@ -205,7 +254,7 @@ Figure~\ref{fig:bridge} compares the count-derived effective opacity with the bo
 
 Combining the two viewing geometries gives the density-correction distribution in Figure~\ref{fig:bridge-3d}. A possible low-density region appears above and to the negative-$X$ side of the tunnel. A positive correction near ring 1679 reaches $+0.57$~g\,cm$^{-3}$ at $(1,9,-9)$~m, a location directly sampled by that position.
 
-Regional means are evaluated over a fixed set of voxels above the tunnel on its negative-$X$ side, selected from a preliminary joint reconstruction and used unchanged for all three fits. The joint mean correction is $-0.36$~g\,cm$^{-3}$; separate fits to rings 1672 and 1679 give $-0.21$ and $-0.24$~g\,cm$^{-3}$, respectively. Both separate fits therefore give a negative regional mean, although their spatial distributions differ.
+A fixed set of voxels above the tunnel on its negative-$X$ side was selected from a preliminary joint reconstruction and retained for all fits. Its joint mean correction is $-0.36$~g\,cm$^{-3}$; separate fits to rings 1672 and 1679 give $-0.21$ and $-0.24$~g\,cm$^{-3}$, although their spatial distributions differ.
 
 \begin{figure}[tbp]
 \centering
@@ -214,13 +263,16 @@ Regional means are evaluated over a fixed set of voxels above the tunnel on its 
 \label{fig:bridge-3d}
 \end{figure}
 
-Cross-position predictions provide a further consistency check using Poisson deviance, where smaller values indicate closer agreement. Predicting ring 1679 from the ring-1672 reconstruction reduces the deviance from 801.4 to 770.6; the reverse prediction reduces it from 272.1 to 256.9. These improvements are consistent with the negative regional means.
+Cross-position predictions provide a further consistency check using Poisson deviance, where smaller values indicate closer agreement. Predicting ring 1679 from the ring-1672 reconstruction reduces the deviance from 801.4 to 770.6; the reverse prediction reduces it from 272.1 to 256.9. The reductions are modest but directionally consistent with the negative regional means.
 
-\section{FOUR-POSITION PIPELINE SEARCH}
-\subsection{Survey geometry and directional features}
+\subsection{Interpretation and limitations}
+The result indicates a possible low-density region relative to the borehole model, not a confirmed void or material. Interpretation is limited by sparse borehole control, interpolated layer boundaries, non-simultaneous sky references, normalisation and regularisation. Because the comparison region was selected from a preliminary reconstruction, its mean is descriptive rather than an independent test statistic.
+
+\section{FIELD DEMONSTRATION II: STATIC MULTI-POSITION PIPELINE INVESTIGATION}
+\subsection{Engineering objective and survey arrangement}
 Conventional detection methods had not located the pipeline at the position indicated in the original drawings, leaving uncertainty about its location relative to the planned tunnel alignment. The muography survey was therefore undertaken to investigate whether additional positional information could be obtained to inform pipeline-avoidance measures during shield advance.
 
-The detector was deployed sequentially at four positions within the tunnel, as shown in Figure~\ref{fig:pipeline-deployment}. Acquisition times at P0--P3 were 22.8, 21.7, 32.5 and 22.0~h, respectively. Tracks were binned into $36\times38$ directional maps, with 21,084--31,309 underground counts per position and 78,718 counts in the shared open-sky map.
+The detector was deployed sequentially at four stationary positions within the tunnel, as shown in Figure~\ref{fig:pipeline-deployment}. Acquisition times at P0--P3 were 22.8, 21.7, 32.5 and 22.0~h, respectively. Tracks were binned into $36\times38$ directional maps, with 21,084--31,309 underground counts per position and 78,718 counts in the shared open-sky map.
 
 The coordinate origin for this survey is the centre of ring 252; $X$ is along the tunnel opposite to advance, $Y$ points horizontally towards the reference wall and $Z$ is upward. Table~\ref{tab:pose} gives the instrument centres and orientations used in the reconstruction. Pitch is the elevation of the detector normal; $\alpha=0$ faces positive $Y$, with positive rotation towards negative $X$. The geometric model follows the construction drawings, with tunnel inner/outer radii of 2.75/3.10~m and ground at $Z=16.8$~m.
 
@@ -256,7 +308,8 @@ P3 & $-3.80$ & 1.60 & $-1.50$ & 35.8 & $-77.0$\\\bottomrule
 \end{tabular}
 \end{table}
 
-A position-specific U-Net \autocite{ronneberger2015} is trained on simulated directional images covering different pipeline orientations and including cases without a pipeline. The trained network is then applied to the corresponding field observations with its parameters fixed. The network outputs are relative scores, not calibrated probabilities of pipeline presence. Evaluation on 50,000 simulated test samples per position gave pixel ROC-AUC values of 0.9585--0.9703. As shown in Figure~\ref{fig:ridges}, all four field score maps contained an extended ridge.
+\subsection{Algorithm design}
+The pipeline workflow separated directional-feature detection from three-dimensional localisation. First, a position-specific U-Net \autocite{ronneberger2015} was trained on simulated directional maps containing pipelines with varied locations and orientations, together with cases containing no pipeline. Each fixed network then converted its field observation into a relative feature-score map. These scores identify pipeline-like directional structure but are not calibrated probabilities of pipeline presence. Evaluation on 50,000 simulated test samples per position gave pixel ROC-AUC values of 0.9585--0.9703. As shown in Figure~\ref{fig:ridges}, all four field score maps contained an extended ridge.
 
 \begin{figure}[htbp]
 \centering
@@ -265,21 +318,9 @@ A position-specific U-Net \autocite{ronneberger2015} is trained on simulated dir
 \label{fig:ridges}
 \end{figure}
 
-% Keep the reconstruction subsection together at the start of a page.
-\newpage
-\subsection{Three-dimensional reconstruction and engineering use}
-Weighted principal-component analysis fits a straight ridge to high-score pixels in each directional map, using detector-local slopes $t_x=x_{\rm local}/z_{\rm local}$ and $t_y=y_{\rm local}/z_{\rm local}$. The detector position and orientation transform each ridge into a global backprojection plane:
-\begin{equation}
- \boldsymbol n_i^{\mathsf T}(\boldsymbol x-\boldsymbol c_i)=0,
-\end{equation}
-where $\boldsymbol c_i$ is the detector centre and $\boldsymbol n_i$ is the unit plane normal. The candidate pipeline direction is found by minimising
-\begin{equation}
- \hat{\boldsymbol d}=\underset{\|\boldsymbol d\|=1}{\arg\min}
- \left[\sum_i w_i(\boldsymbol n_i^{\mathsf T}\boldsymbol d)^2+\gamma d_z^2\right],
- \label{eq:pipeline_horizontal}
-\end{equation}
-where the empirical weights $w_i$ are proportional to ridge line-likeness divided by transverse residual and satisfy $\sum_iw_i=1$. Ridges with stronger linearity and less transverse scatter receive greater weight. The first term favours a direction parallel to the four planes; the second penalises the vertical component $d_z$, with $\gamma=1$ imposing a soft preference for a near-horizontal pipe. A reference point is obtained by minimising the weighted sum of squared distances to the planes.
+The localisation stage fitted a weighted straight ridge to the high-score region in each directional map. The measured detector poses transformed these view-dependent ridges into backprojection planes in the common tunnel coordinate system. The candidate pipeline axis was found as the line most consistent with all four planes, with empirical view weights based on ridge linearity and transverse residual. A unit-weight soft preference for a near-horizontal direction incorporated the expected utility geometry without enforcing exact horizontality. This multi-view stage converted the four directional features into a single spatial constraint for construction planning.
 
+\subsection{Candidate axis and engineering use}
 The fitted candidate axis is
 \begin{equation}
  \boldsymbol x(\ell)\simeq
@@ -296,13 +337,26 @@ where $\ell$ is distance along the axis in metres. As shown in Figure~\ref{fig:a
 \label{fig:axis}
 \end{figure}
 
-During the field campaign, the muography team provided candidate pipeline positions and shield-avoidance recommendations to the construction team, which reported implementing avoidance measures based on this information.
+The candidate position and shield-avoidance recommendations were supplied to the construction team as precautionary spatial information. The team reported implementing avoidance measures based on this information.
+
+\subsection{Limitations}
+The line is a candidate axis, not independent confirmation. The networks were evaluated on simulated data and their field outputs are not calibrated probabilities. The axis also depends on detector poses, empirical weights and the horizontal penalty; no positional uncertainty or independent confirmation was available.
+
+\section{DISCUSSION}
+\subsection{Instrumentation lessons}
+The campaign shows that one transportable Micromegas system can support dynamic TBM-mounted and stationary multi-position measurements. Most right-line downtime arose from external power and network interruptions, making site infrastructure part of the deployment design.
+
+\subsection{Investigation capability}
+Acquisition required approximately 21--34~h per position, making the present system more suitable for targeted screening than immediate warning. Directional measurements should be combined with boreholes, construction geometry and conventional investigations rather than treated as stand-alone confirmation.
+
+\subsection{Current limitations and development needs}
+Quantitative interpretation remains limited by reference compatibility, sparse viewpoints and unquantified uncertainty. Future work should use matched sky references, systematic pose records, additional views, sensitivity studies and independently confirmed targets.
 
 \section{CONCLUSIONS}
-The field instrument enabled muon acquisition in an operating shield-tunnelling environment through environmental control and pneumatic isolation. Joint reconstruction from two measurement positions indicated a possible low-density region above the tunnel relative to the borehole reference, with a mean density correction of $-0.36$~g\,cm$^{-3}$ within the selected comparison region. Cross-position predictions supported this interpretation. The four-position pipeline survey yielded a candidate three-dimensional axis and provided positional information for shield-avoidance planning. These applications demonstrate the potential of transportable muography to support geological anomaly screening and buried-pipeline assessment during tunnel construction. Further work should improve quantitative localisation through matched reference measurements and additional viewpoints.
+A three-layer Micromegas system completed sustained field deployment on Shenzhen Metro Line~22. Right-line acquisition availability was 85.2\% overall and 97.2\% after external interruptions were excluded. Dynamic measurements indicated a possible low-density region relative to the borehole model, with a mean correction of $-0.36$~g\,cm$^{-3}$ in the selected region. A static four-position investigation produced a candidate pipeline axis for avoidance planning. These results establish field feasibility and decision-support potential, but require improved reference measurements, additional viewpoints, uncertainty quantification and independent validation.
 
 \section*{ACKNOWLEDGEMENTS}
-The authors acknowledge Shenzhen Metro Group Co., Ltd. for providing access to the field sites and coordinating the measurements on Shenzhen Metro Line~22, the University of Science and Technology of China for research support, and the Jianwei teams for providing detector equipment, technical support and maintenance throughout the field campaigns. The authors also acknowledge the assistance of the site personnel with detector installation and data acquisition.
+The authors acknowledge Shenzhen Metro Group Co., Ltd. for field access and coordination, the University of Science and Technology of China for research support, the Jianwei teams for equipment and maintenance, and the site personnel for assistance with installation and data acquisition.
 
 \section*{REFERENCES}
 \printbibliography[heading=none]
