@@ -219,12 +219,12 @@ The detector was deployed in the completed left-line tunnel, facing the right li
 The workflow separated feature detection from three-dimensional localisation. First, a position-specific U-Net \autocite{ronneberger2015} was trained on simulated directional maps containing pipelines with varied locations and orientations, together with cases containing no pipeline, and reached an area under the ROC curve above 0.95 on simulated test data. Each network converted its field map into relative feature scores, which indicate pipeline-like structure but are not calibrated probabilities. All four field maps contained an extended ridge (Figure~\ref{fig:pipeline}, bottom). A straight ridge was then fitted to the high-score region in each map, and the measured detector poses transformed the four ridges into backprojection planes in a common tunnel frame. The pipeline axis is the line most consistent with all four planes, with views weighted by ridge quality and a soft preference for a near-horizontal direction reflecting the expected utility geometry.
 
 \subsection{Results and engineering use}
-The four views converged on a single, nearly horizontal candidate axis crossing the tunnel alignment at about $47^\circ$ (Figure~\ref{fig:axis}), providing an estimate of the orientation and burial position of the `missing' pipe. Based on this result, the construction team changed the vertical alignment of the designed right-line tunnel, and the shield passed through the region without interference. The pipeline position itself was not verified by boreholes or other direct means; the axis also depends on simulation-trained networks and surveyed detector poses, and no positional uncertainty was estimated.
+The four views converged on a single, nearly horizontal candidate axis crossing above the tunnel alignment (Figure~\ref{fig:axis}), providing an estimate of the orientation and burial position of the `missing' pipe. Based on this result, the construction team changed the vertical alignment of the designed right-line tunnel, and the shield passed through the region without interference. The pipeline position itself was not verified by boreholes or other direct means; the axis also depends on simulation-trained networks and surveyed detector poses, and no positional uncertainty was estimated.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.56\textwidth]{figure6_pipeline_axis_horizontal.pdf}
-\caption{Three-dimensional candidate pipeline axis with the horizontal soft constraint. Coloured ray fans represent the backprojection planes from P0--P3; the orange tube shows the candidate pipe with its recorded diameter of 0.8~m.}
+\includegraphics[width=0.62\textwidth]{figure_pipeline_reconstruction.png}
+\caption{Three-dimensional pipeline reconstruction in the ring-252 frame (m). Coloured ray fans represent the backprojection planes from P0--P3, and the grey tube shows the candidate pipe with its recorded diameter of 0.8~m.}
 \label{fig:axis}
 \end{figure}
 
