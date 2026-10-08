@@ -121,17 +121,17 @@ Max.\ event rate & 3~kHz & Monitoring & Temperature, humidity, inclination, vibr
 \end{table}
 
 \subsection{Design for the tunnel environment}
-Shield tunnelling exposes the instrument to heat and humidity, machine vibration, a continuously changing observation geometry and limited access for maintenance. The IP56 main enclosure integrates the detectors, readout electronics, power supplies and a sealed air-conditioning unit that controls internal temperature and humidity. For TBM-mounted operation, four pneumatic isolators separate the inclined detector frame from the shield support platform, and vibration sensors on the platform and inside the enclosure record the vibration on each side of the isolators. An inclinometer records the detector inclination so that each measurement can be associated with its observation geometry. A dedicated gas-control subsystem in a separate enclosure supplies the argon--carbon-dioxide mixture with much lower consumption than laboratory flow-gas operation; a single 8~L cylinder at 10~MPa sustained approximately three months of field operation, which set the routine maintenance interval. The system is an unattended (headless) instrument: it runs without an operator on site, and its status, environmental and vibration data are monitored and controlled remotely over Ethernet or RS485, making it suitable for autonomous, long-term sensing in the tunnel. Figure~\ref{fig:installation} shows the gas-supply and main enclosures (a), the internal arrangement (b) and installations on two TBMs (c, d).
+Shield tunnelling exposes the instrument to heat and humidity, machine vibration, a continuously changing observation geometry and limited access for maintenance. The IP56 main enclosure (Figure~\ref{fig:installation}a,b) integrates the detectors, readout electronics, power supplies and a sealed air-conditioning unit that controls internal temperature and humidity. For TBM-mounted operation, four pneumatic isolators (Figure~\ref{fig:installation}c) separate the inclined detector frame from the shield support platform, and vibration sensors on the platform and inside the enclosure record the vibration on each side of the isolators. An inclinometer records the detector inclination so that each measurement can be associated with its observation geometry. A dedicated gas-control subsystem in a separate enclosure (Figure~\ref{fig:installation}a) supplies the argon--carbon-dioxide mixture with much lower consumption than laboratory flow-gas operation; a single 8~L cylinder at 10~MPa sustained approximately three months of field operation, which set the routine maintenance interval. The system is an unattended (headless) instrument: it runs without an operator on site, and its status, environmental and vibration data are monitored and controlled remotely over Ethernet or RS485, making it suitable for autonomous, long-term sensing in the tunnel.
 
 \subsection{Field deployment and operational performance}
-The system operated at depths of approximately 15--30~m from 6~November~2025 to 27~July~2026, covering 1371 rings (428 on the left line and 943 on the right). It was installed approximately 5~m behind the cutterhead on the left line and 15~m behind it on the right. Detector positions and orientations were associated with the corresponding ring records for subsequent analysis. Monitored enclosure temperatures remained below $40\,^{\circ}$C and relative humidity below 70\%.
+The system operated at depths of approximately 15--30~m from 6~November~2025 to 27~July~2026, covering 1371 rings (428 on the left line and 943 on the right). It was installed approximately 5~m behind the cutterhead on the left line and 15~m behind it on the right (Figure~\ref{fig:installation}d,c). Detector positions and orientations were associated with the corresponding ring records for subsequent analysis. Monitored enclosure temperatures remained below $40\,^{\circ}$C and relative humidity below 70\%.
 
 On the right line, effective data acquisition totalled 2965.5~h, or 85.2\% of the 3480.0~h monitoring period. The availability was 97.2\% after 401.5~h of external power loss and 28.3~h of network interruption were excluded. The remaining 84.7~h comprised system maintenance.
 
 Figure~\ref{fig:vibration} compares the records on either side of TBM advance--pause transitions between 20 May and 11 July 2026, with advance and pause periods identified from the platform vibration record. When the shield advanced, the platform acceleration rose from near zero to about 8--10~m$g$ and the DAQ data rate increased with it (Figure~\ref{fig:vibration}a,c); over 56 transitions, the data rate during advance was on average 76\% higher than during the adjacent pause (95\% interval 62--93\%; Figure~\ref{fig:vibration}d). The isolators therefore did not fully suppress the disturbance: residual vibration, stronger electromagnetic interference from the TBM, or both induced additional spurious triggers. The rate of reconstructed three-layer muon tracks, by contrast, did not change (Figure~\ref{fig:vibration}b,d): the mean difference between advance and pause was $-1.5$\% (95\% interval $-6.9$ to $+5.8$\%). The three-layer coincidence and track reconstruction thus rejected the spurious triggers, so TBM operation increased the data volume without measurably affecting the muon measurement.
 
 
-\begin{figure}[htbp]
+\begin{figure}[tp]
 \centering
 \setlength\panelheight{32mm}%
 \labelledpanel{a}{figure_instrument_overview.jpg}\hspace{4mm}%
@@ -148,14 +148,14 @@ Figure~\ref{fig:vibration} compares the records on either side of TBM advance--p
 \draw[yellow!85!orange,line width=0.5pt] (isolatorlabel.north) -- (0.241,0.1824);
 \end{scope}}]{c}{figure_tbm_deployment.png}\hspace{4mm}%
 \labelledpanel{d}{figure_deployment_left_line.jpg}
-\caption{Muography system: (a) gas-supply enclosure (left) and main detector enclosure (right); (b) internal structure of the main enclosure; (c) deployment on the right-line TBM about 15~m behind the cutterhead, on pneumatic isolators; (d) deployment on the left-line TBM about 5~m behind the cutterhead.}
+\caption{Muography system: (a) gas-supply (left) and main (right) enclosures; (b) main-enclosure interior; (c) right-line and (d) left-line TBM installations.}
 \label{fig:installation}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics{figure_vibration_transition.pdf}
-\caption{Detector response to TBM advance and pause (Beijing time). (a)--(c) Platform acceleration outside the isolators, reconstructed three-layer muon rate and DAQ data rate during a typical sequence; bars give the means in the 10-min windows immediately before and after each transition. (d) Mean DAQ data rate and muon rate during advance relative to the adjacent pause, pooled over 56 transitions from 20 May to 11 July 2026, with 95\% intervals.}
+\caption{Detector response to TBM advance and pause (Beijing time). (a)--(c) A typical sequence: platform acceleration outside the isolators, reconstructed muon rate and DAQ data rate; bars are 10-min window means. (d) Pooled change during advance relative to the adjacent pause, with 95\% intervals.}
 \label{fig:vibration}
 \end{figure}
 
@@ -208,7 +208,7 @@ The detector was deployed in the completed left-line tunnel, facing the right li
 \node[anchor=north east,inner sep=0] at (M0.north west) {\includegraphics[trim=0.00pt 31.92pt 482.64pt 0.00pt,clip,width=9.06mm]{figure5_pipeline_projected_ridges.pdf}};
 \node[anchor=north,inner sep=0] at ([yshift=-0.5mm]$(M1.south east)!0.5!(M2.south west)$) {\includegraphics[trim=31.20pt 0.00pt 158.16pt 150.00pt,clip,width=95.59mm]{figure5_pipeline_projected_ridges.pdf}};
 \end{tikzpicture}
-\caption{Pipeline survey at stations (a) P0, (b) P1, (c) P2 and (d) P3: detector deployment (top) and the corresponding network score maps over the muon angular distribution (bottom). Colours show network scores normalised within each station and lines mark the fitted ridges; axes are track slopes in detector coordinates and RMS is the residual about the ridge.}
+\caption{Pipeline survey at stations (a) P0 to (d) P3: detector deployment (top) and network score maps over the muon angular distribution, normalised per station, with fitted ridges (bottom). Axes are track slopes in detector coordinates; RMS is the residual about the ridge.}
 \label{fig:pipeline}
 \end{figure}
 
@@ -279,7 +279,7 @@ Excavation of one ring takes hours, depending on soil and ground conditions, whe
   at ($(fb1)!0.5!(fb2)$) {Uncertainty may guide additional measurements};
 \end{tikzpicture}%
 }
-\caption{Proposed field-to-decision workflow for tunnel muography. Both applications share the measurement chain and differ in interpretation; each output should be reviewed before it informs a precautionary engineering decision.}
+\caption{Proposed field-to-decision workflow for tunnel muography.}
 \label{fig:workflow}
 \end{figure}
 
