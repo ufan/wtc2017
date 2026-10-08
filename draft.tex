@@ -20,9 +20,10 @@
 \usepackage[style=authoryear,backend=biber,sorting=nyt,doi=false,isbn=false,eprint=false,autopunct=false,giveninits=true,uniquename=init,uniquelist=false,maxcitenames=2,mincitenames=1,maxbibnames=99]{biblatex}
 \urlstyle{same}
 \graphicspath{{images/}}
+\newlength\panelheight\setlength\panelheight{38mm}
 \newcommand{\labelledpanel}[3][]{%
 \begin{tikzpicture}
-\node[anchor=south west,inner sep=0,outer sep=0] (panel) at (0,0) {\includegraphics[height=38mm]{#3}};
+\node[anchor=south west,inner sep=0,outer sep=0] (panel) at (0,0) {\includegraphics[height=\panelheight]{#3}};
 \node[anchor=north west,fill=white,fill opacity=0.72,text opacity=1,
       inner xsep=3pt,inner ysep=2pt,font=\bfseries\fontsize{9}{10}\selectfont]
       at ([xshift=0.5mm,yshift=-0.5mm]panel.north west) {(#2)};
@@ -120,7 +121,7 @@ Max.\ event rate & 3~kHz & Monitoring & Temperature, humidity, inclination, vibr
 \end{table}
 
 \subsection{Design for the tunnel environment}
-Shield tunnelling exposes the instrument to heat and humidity, machine vibration, a continuously changing observation geometry and limited access for maintenance. The IP56 main enclosure integrates the detectors, readout electronics, power supplies and a sealed air-conditioning unit that controls internal temperature and humidity. For TBM-mounted operation, four pneumatic isolators separate the inclined detector frame from the shield support platform, and vibration sensors on the platform and inside the enclosure record the vibration on each side of the isolators. An inclinometer records the detector inclination so that each measurement can be associated with its observation geometry. A dedicated gas-control subsystem in a separate enclosure supplies the argon--carbon-dioxide mixture with much lower consumption than laboratory flow-gas operation; a single 8~L cylinder at 10~MPa sustained approximately three months of field operation, which set the routine maintenance interval. The system is an unattended (headless) instrument: it runs without an operator on site, and its status, environmental and vibration data are monitored and controlled remotely over Ethernet or RS485, making it suitable for autonomous, long-term sensing in the tunnel. Figure~\ref{fig:installation} shows the enclosure design with dimensions (a), internal arrangement (b) and installation on the TBM (c).
+Shield tunnelling exposes the instrument to heat and humidity, machine vibration, a continuously changing observation geometry and limited access for maintenance. The IP56 main enclosure integrates the detectors, readout electronics, power supplies and a sealed air-conditioning unit that controls internal temperature and humidity. For TBM-mounted operation, four pneumatic isolators separate the inclined detector frame from the shield support platform, and vibration sensors on the platform and inside the enclosure record the vibration on each side of the isolators. An inclinometer records the detector inclination so that each measurement can be associated with its observation geometry. A dedicated gas-control subsystem in a separate enclosure supplies the argon--carbon-dioxide mixture with much lower consumption than laboratory flow-gas operation; a single 8~L cylinder at 10~MPa sustained approximately three months of field operation, which set the routine maintenance interval. The system is an unattended (headless) instrument: it runs without an operator on site, and its status, environmental and vibration data are monitored and controlled remotely over Ethernet or RS485, making it suitable for autonomous, long-term sensing in the tunnel. Figure~\ref{fig:installation} shows the gas-supply and main enclosures (a), the internal arrangement (b) and installations on two TBMs (c, d).
 
 \subsection{Field deployment and operational performance}
 The system operated at depths of approximately 15--30~m in the Guihua Station--Songyuanxia Station interval from 6~November~2025 to 27~July~2026, covering 1371 rings (428 on the left line and 943 on the right). It was installed approximately 5~m behind the cutterhead on the left line and 15~m behind it on the right. Detector positions and orientations were associated with the corresponding ring records for subsequent analysis. Monitored enclosure temperatures remained below $40\,^{\circ}$C and relative humidity below 70\%.
@@ -132,13 +133,9 @@ Figure~\ref{fig:vibration} compares the records on either side of TBM advance--p
 
 \begin{figure}[htbp]
 \centering
-\begin{minipage}[t]{0.38\textwidth}\centering
-\labelledpanel{a}{figure_enclosure_design.png}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.32\textwidth}\centering
-\labelledpanel{b}{figure_system_interior.png}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.27\textwidth}\centering
+\setlength\panelheight{32mm}%
+\labelledpanel{a}{figure_instrument_overview.jpg}\hspace{4mm}%
+\labelledpanel{b}{figure_system_interior.png}\par\medskip
 \labelledpanel[{\begin{scope}[x={(panel.south east)},y={(panel.north west)}]
 \foreach \pos in {(0.241,0.235)} {
   \draw[white,line width=1.0pt] \pos circle[radius=2.0mm];
@@ -149,16 +146,16 @@ Figure~\ref{fig:vibration} compares the records on either side of TBM advance--p
       at (0.04,0.04) {Pneumatic isolator};
 \draw[white,line width=1.0pt] (isolatorlabel.north) -- (0.241,0.1824);
 \draw[yellow!85!orange,line width=0.5pt] (isolatorlabel.north) -- (0.241,0.1824);
-\end{scope}}]{c}{figure_tbm_deployment.png}
-\end{minipage}
-\caption{Muography system: (a) enclosure and exterior design with dimensions; (b) photograph showing the internal structure; (c) deployment on the tunnel boring machine.}
+\end{scope}}]{c}{figure_tbm_deployment.png}\hspace{4mm}%
+\labelledpanel{d}{figure_deployment_left_line.jpg}
+\caption{Muography system: (a) gas-supply enclosure (left) and main detector enclosure (right); (b) internal structure of the main enclosure; (c) deployment on the right-line TBM about 15~m behind the cutterhead, on pneumatic isolators; (d) deployment on the left-line TBM about 5~m behind the cutterhead.}
 \label{fig:installation}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics{figure_vibration_transition.pdf}
-\caption{Detector response to TBM advance and pause (Beijing time). (a)--(c) A typical advance--pause--advance sequence: (a) acceleration on the shield support platform outside the isolators; (b) reconstructed three-layer muon track rate; (c) DAQ data rate. Dashed lines give the mean in each state. (d) Change in DAQ data rate and muon rate during advance relative to the adjacent pause for 56 transitions between 20 May and 11 July 2026: grey points show single transitions, and coloured markers the change in mean rate with its 95\% interval.}
+\caption{Detector response to TBM advance and pause (Beijing time). (a)--(c) Platform acceleration outside the isolators, reconstructed three-layer muon rate and DAQ data rate during a typical sequence; dashed lines are state means. (d) Change during advance relative to the adjacent pause for 56 transitions, 20 May--11 July 2026: single transitions (grey) and change in mean rate with 95\% interval.}
 \label{fig:vibration}
 \end{figure}
 
