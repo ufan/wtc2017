@@ -127,7 +127,7 @@ The system operated at depths of approximately 15--30~m in the Guihua Station--S
 
 On the right line, effective data acquisition totalled 2965.5~h, or 85.2\% of the 3480.0~h monitoring period. The availability was 97.2\% after 401.5~h of external power loss and 28.3~h of network interruption were excluded. The remaining 84.7~h comprised system maintenance.
 
-Figure~\ref{fig:vibration} compares the records on either side of TBM advance--pause transitions between 20 May and 11 July 2026. When the shield advanced, the platform acceleration rose from near zero to about 8--10~m$g$ and the DAQ throughput increased with it (Figure~\ref{fig:vibration}a,c); over 56 transitions, throughput during advance was on average 76\% higher than during the adjacent pause (Figure~\ref{fig:vibration}d). The isolators therefore did not fully suppress the disturbance: residual vibration, stronger electromagnetic interference from the TBM, or both induced additional spurious triggers. The rate of reconstructed three-layer muon tracks, by contrast, did not change (Figure~\ref{fig:vibration}b,d): the mean difference between advance and pause was $-1.5$\%, and its 95\% interval includes zero. The three-layer coincidence and track reconstruction thus rejected the spurious triggers, so TBM operation increased the data volume without measurably affecting the muon measurement.
+Figure~\ref{fig:vibration} compares the records on either side of TBM advance--pause transitions between 20 May and 11 July 2026, with advance and pause periods identified from the platform vibration record. When the shield advanced, the platform acceleration rose from near zero to about 8--10~m$g$ and the DAQ data rate increased with it (Figure~\ref{fig:vibration}a,c); over 56 transitions, the data rate during advance was on average 76\% higher than during the adjacent pause (95\% interval 62--93\%; Figure~\ref{fig:vibration}d). The isolators therefore did not fully suppress the disturbance: residual vibration, stronger electromagnetic interference from the TBM, or both induced additional spurious triggers. The rate of reconstructed three-layer muon tracks, by contrast, did not change (Figure~\ref{fig:vibration}b,d): the mean difference between advance and pause was $-1.5$\% (95\% interval $-6.9$ to $+5.8$\%). The three-layer coincidence and track reconstruction thus rejected the spurious triggers, so TBM operation increased the data volume without measurably affecting the muon measurement.
 
 
 \begin{figure}[htbp]
@@ -157,13 +157,8 @@ Figure~\ref{fig:vibration} compares the records on either side of TBM advance--p
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}
-\node[anchor=north west,inner sep=0] (ts) at (4mm,0) {\includegraphics[height=47mm]{figure_vibration_transition.png}};
-\node[anchor=north west,inner sep=0] (pd) at ([xshift=4mm]ts.north east) {\includegraphics[height=47mm]{figure_vibration_paired.png}};
-\foreach \l/\f in {a/0,b/0.325,c/0.66}{\node[anchor=north east,inner sep=0,font=\small] at ($(ts.north west)!\f!(ts.south west)$) {(\l)};}
-\node[anchor=north east,inner sep=0,font=\small] at (pd.north west) {(d)};
-\end{tikzpicture}
-\caption{Detector response to TBM advance--pause transitions (Beijing time). (a)--(c) A typical sequence on 30 June 2026: (a) acceleration on the shield support platform outside the isolators; (b) reconstructed three-layer muon track rate; (c) DAQ throughput. Shading and thick horizontal lines mark the 10-min comparison windows before and after each transition. (d) Mean change in DAQ throughput and muon rate during advance relative to the adjacent pause, 20 May--11 July 2026, with 95\% intervals, for all 56 transitions (black) and for the 30 transitions with a clean vibration record (orange).}
+\includegraphics{figure_vibration_transition.pdf}
+\caption{Detector response to TBM advance--pause transitions (Beijing time). (a)--(c) A typical sequence: (a) acceleration on the shield support platform outside the isolators (1-min values and 5-min median); (b) reconstructed three-layer muon track rate in 2-min bins; (c) DAQ data rate. Red and blue shading mark the 10-min advance and pause comparison windows, horizontal bars their means, and dashed lines the transitions. (d) Mean change during advance relative to the adjacent pause, 20 May--11 July 2026, with 95\% intervals, for all 56 transitions (black) and for the 30 transitions with a clean vibration record (orange).}
 \label{fig:vibration}
 \end{figure}
 
@@ -235,7 +230,7 @@ The four observations converged on a single, nearly horizontal candidate axis cr
 
 \section{DISCUSSION}
 \subsection{Lessons for field instrumentation}
-The campaign shows that one transportable Micromegas system can support dynamic TBM-mounted and stationary multi-station measurements. TBM advance raised the raw trigger rate despite pneumatic isolation, but three-layer track reconstruction kept the muon rate unaffected; separating the vibration and electromagnetic contributions is a design task for future systems. In addition, the low-consumption gas supply allowed about three months between routine services. Most right-line downtime arose from external power and network interruptions, making site infrastructure part of the deployment design.
+The campaign shows that one transportable Micromegas system can support dynamic TBM-mounted and stationary multi-station measurements. TBM advance raised the raw data rate despite pneumatic isolation, but three-layer track reconstruction kept the muon rate unaffected; separating the vibration and electromagnetic contributions is a design task for future systems. In addition, the low-consumption gas supply allowed about three months between routine services. Most right-line downtime arose from external power and network interruptions, making site infrastructure part of the deployment design.
 
 \subsection{Integration into tunnelling practice}
 Figure~\ref{fig:workflow} summarises how the two demonstrations moved from field measurement to an engineering decision. Both share the same measurement chain but use different interpretation branches, and each output passes through an evidence review before informing a precautionary decision; remaining uncertainty can direct further measurement stations. The same chain can become a routine part of shield construction: an unattended detector on the TBM back-up gantry screening the ground ahead of the face, its data combined with borehole logs and TBM operating records, and stationary multi-station surveys from completed tunnels for specific targets such as utilities, shafts or obstructions.
